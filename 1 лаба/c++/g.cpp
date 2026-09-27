@@ -1,40 +1,38 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <cmath>
+using namespace std;
 
-sing namespace std;
+void CountSort(vector<int> &a)
+{
+    vector<int> s(101, 0);
+    for (int x : a)
+        s[x]++;
 
-void countingSort(vector<int> &arr) {
-    int max = *max_element(arr.begin(), arr.end());
-    vector <int> count(max + 1);
-
-    for (int i = 0; i < arr.size(); i++) {
-        count[arr[i]]++;
-    }
-
-    int index = 0;
-    for (int i = 0; i < count.size(); i++) {
-        while (count[i] > 0) {
-            arr[index++] = i;
-            count[i]--;
+    int i = 0;
+    for (int j = 0; j < 101; j++)
+    {
+        for (int x = 0; x < s[j]; x++)
+        {
+            a[i] = j;
+            i++;
         }
     }
 }
 
-int main(){
-    vector <int> arr;
+int main()
+{
+    vector<int> b;
     int x;
-    
-    while (cin >> x) {
-        if (x < 0 || x > 100) {
-            exit(1);
-        } else {
-            arr.push_back(x);
-        }
-    }
+    while (cin >> x)
+        b.push_back(x);
 
-    countingSort(arr);
+    CountSort(b);
+
+    for (int i = 0; i < (int)b.size(); i++)
+        cout << b[i] << (i + 1 < (int)b.size() ? " " : "\n");
+
+    return 0;
+}    countingSort(arr);
     for (int i = 0; i < arr.size(); i++) {
         cout << arr[i] << " ";
     }
