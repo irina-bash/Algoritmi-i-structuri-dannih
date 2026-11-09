@@ -1,53 +1,48 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
 using namespace std;
 
-bool good(const vector<int> &a, int x, int k)
+bool good(const vector<int>& a, int k, int len)
 {
-    long long cnt = 0;
+    int count = 0;
 
-    for (auto ln : a)
+    for (int rope : a)
     {
-        cnt += ln / x;
+        count += rope / len;
 
-        if (cnt >= k)
+        if (count >= k)
             return true;
     }
 
     return false;
 }
 
-void inpute(vector<int> &arr, int size)
-{
-    int x;
-
-    for (int i = 0; i < size; i++)
-    {
-        cin >> x;
-        arr.push_back(x);
-    }
-}
-
 int main()
 {
     int n, k;
-    vector<int> a;
-
     cin >> n >> k;
-    inpute(a, n);
+
+    vector<int> a(n);
+
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
 
     int l = 0;
-    int r = 10000001;
+    int r = *max_element(a.begin(), a.end()) + 1;
 
     while (r - l > 1)
     {
-        int m = (r + l) / 2;
+        int m = l + (r - l) / 2;
 
-        if (good(a, m, k))
+        if (good(a, k, m))
             l = m;
         else
             r = m;
     }
 
     cout << l;
+
+    return 0;
 }
