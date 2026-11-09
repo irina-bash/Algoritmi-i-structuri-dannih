@@ -1,18 +1,15 @@
 #include <iostream>
+
 using namespace std;
 
 bool good(long long x, long long w, long long h, long long n)
 {
-    long long a = x / w;
-    long long b = x / h;
-
-    return a * b >= n;
+    return (x / w) * (x / h) >= n;
 }
 
 int main()
 {
     long long w, h, n;
-
     cin >> w >> h >> n;
 
     long long l = 0;
@@ -20,7 +17,7 @@ int main()
 
     while (r - l > 1)
     {
-        long long m = (l + r) / 2;
+        long long m = l + (r - l) / 2;
 
         if (good(m, w, h, n))
             r = m;
@@ -29,4 +26,6 @@ int main()
     }
 
     cout << r;
+
+    return 0;
 }
