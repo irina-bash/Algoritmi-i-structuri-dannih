@@ -1,32 +1,37 @@
 #include <iostream>
-#include <vector>
+#include <algorithm>
+
 using namespace std;
 
-bool good(int cnt, int q, int s, int t)
+bool good(int time, int n, int x, int y)
 {
-    return t / q + t / s >= cnt;
-}
+    int first = min(x, y);
 
-int bin_r(int n, int quick, int slow)
-{
-    int l = 0;
-    int r = (n - 1) * slow;
-    while (r - l > 1)
-    {
-        int m = (r + l) / 2;
-        if (!good(n - 1, quick, slow, m))
-            l = m;
-        else
-            r = m;
-    }
-    return r + quick;
+    if (time < first)
+        return false;
+
+    return 1 + (time - first) / x + (time - first) / y >= n;
 }
 
 int main()
 {
     int n, x, y;
     cin >> n >> x >> y;
-    int q = min(x, y);
-    int s = max(x, y);
-    cout << bin_r(n, q, s);
+
+    int l = 0;
+    int r = n * min(x, y);
+
+    while (r - l > 1)
+    {
+        int m = l + (r - l) / 2;
+
+        if (good(m, n, x, y))
+            r = m;
+        else
+            l = m;
+    }
+
+    cout << r;
+
+    return 0;
 }
