@@ -1,48 +1,71 @@
-class Queue:
+class Deque:
     def __init__(self):
-        self.queue = []
+        self.data = []
 
-    def push(self, n):
-        self.queue.append(n)
+    def push_front(self, n):
+        self.data.insert(0, n)
         return 'ok'
 
-    def pop(self):
-        if not self.queue:
+    def push_back(self, n):
+        self.data.append(n)
+        return 'ok'
+
+    def pop_front(self):
+        if not self.data:
             return 'error'
-        return self.queue.pop(0)
+        return self.data.pop(0)
+
+    def pop_back(self):
+        if not self.data:
+            return 'error'
+        return self.data.pop()
 
     def front(self):
-        if not self.queue:
+        if not self.data:
             return 'error'
-        return self.queue[0]
+        return self.data[0]
+
+    def back(self):
+        if not self.data:
+            return 'error'
+        return self.data[-1]
 
     def size(self):
-        return len(self.queue)
+        return len(self.data)
 
     def clear(self):
-        self.queue.clear()
+        self.data.clear()
         return 'ok'
 
 
-queue = Queue()
+deq = Deque()
 
 while True:
     command = input().split()
 
-    if command[0] == 'push':
-        print(queue.push(int(command[1])))
+    if command[0] == 'push_front':
+        print(deq.push_front(int(command[1])))
 
-    elif command[0] == 'pop':
-        print(queue.pop())
+    elif command[0] == 'push_back':
+        print(deq.push_back(int(command[1])))
+
+    elif command[0] == 'pop_front':
+        print(deq.pop_front())
+
+    elif command[0] == 'pop_back':
+        print(deq.pop_back())
 
     elif command[0] == 'front':
-        print(queue.front())
+        print(deq.front())
+
+    elif command[0] == 'back':
+        print(deq.back())
 
     elif command[0] == 'size':
-        print(queue.size())
+        print(deq.size())
 
     elif command[0] == 'clear':
-        print(queue.clear())
+        print(deq.clear())
 
     elif command[0] == 'exit':
         print('bye')
