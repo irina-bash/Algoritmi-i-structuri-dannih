@@ -1,72 +1,18 @@
-class Deque:
-    def __init__(self):
-        self.data = []
+from collections import deque
 
-    def push_front(self, n):
-        self.data.insert(0, n)
-        return 'ok'
+n, k = map(int, input().split())
+a = list(map(int, input().split()))
 
-    def push_back(self, n):
-        self.data.append(n)
-        return 'ok'
+d = deque()
 
-    def pop_front(self):
-        if not self.data:
-            return 'error'
-        return self.data.pop(0)
+for i in range(n):
+    while d and d[0] <= i - k:
+        d.popleft()
 
-    def pop_back(self):
-        if not self.data:
-            return 'error'
-        return self.data.pop()
+    while d and a[d[-1]] >= a[i]:
+        d.pop()
 
-    def front(self):
-        if not self.data:
-            return 'error'
-        return self.data[0]
+    d.append(i)
 
-    def back(self):
-        if not self.data:
-            return 'error'
-        return self.data[-1]
-
-    def size(self):
-        return len(self.data)
-
-    def clear(self):
-        self.data.clear()
-        return 'ok'
-
-
-deq = Deque()
-
-while True:
-    command = input().split()
-
-    if command[0] == 'push_front':
-        print(deq.push_front(int(command[1])))
-
-    elif command[0] == 'push_back':
-        print(deq.push_back(int(command[1])))
-
-    elif command[0] == 'pop_front':
-        print(deq.pop_front())
-
-    elif command[0] == 'pop_back':
-        print(deq.pop_back())
-
-    elif command[0] == 'front':
-        print(deq.front())
-
-    elif command[0] == 'back':
-        print(deq.back())
-
-    elif command[0] == 'size':
-        print(deq.size())
-
-    elif command[0] == 'clear':
-        print(deq.clear())
-
-    elif command[0] == 'exit':
-        print('bye')
-        break
+    if i >= k - 1:
+        print(a[d[0]])
